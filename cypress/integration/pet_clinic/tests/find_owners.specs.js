@@ -6,8 +6,10 @@ import CommonUtils from '../../common/utilities.js';
 
 context('Home Page Tests', () => {
 
-  var sel = new GetSelectors();
+  var sel = new GetSelectors()
   var util = new CommonUtils()
+  var tempData = new Map()
+  var lName
   
   //Find Owners Menu
   it('Goto Owner Menu', () => {
@@ -29,13 +31,42 @@ context('Home Page Tests', () => {
       .get('form#add-owner-form').should('be.visible')
 
       //Input data
-      .get('#firstName').type("First" + inputStr)
-      .get('#lastName').type("Last" + inputStr)
-      .get('#address').type("Address " + inputStr)
-      .get('#city').type("City" + inputStr)
-      .get('#telephone').type("1234567890")
-      //Save data
+      let lName ="Last" + inputStr
+     cy.get('#firstName').type("First" + inputStr)
+       .get('#lastName').type(lName)
+       .get('#address').type("Address " + inputStr)
+       .get('#city').type("City" + inputStr)
+       .get('#telephone').type(util.randomStr(10, "1234567890"))
+      
       .get('button[type="submit"]').should('have.text', 'Add Owner').click()
+
+      //Store data in a map for later use
+      lName = tempData.set('lastName',lName)
+  })
+
+  //Find Owners
+  it('Find Owners', () => {
+    sel.getAllMenuItems()
+      .then(function($lis){
+        cy.log('Clicking Owners menu')
+        $lis.eq(1).find('span').click()
+      })
+
+    //Search by last name  
+    cy.get('input#lastName').type('Last')
+      .get('button.btn').should('have.text', 'Find Owner').click().wait(1000)
+
+    //Verify that the search data is present in the table
+    cy.get('#ownersTable td a').contains(tempData.get('lastName'))
+  })
+
+  it('Select an Owner', () => {
+
+    let searchText = tempData.get('lastName')
+    cy.get('table#ownersTable a[href]').contains(searchText).click()
+
+    //Verify that the searche owner is selected 
+    cy.get('table tr td b').contains(searchText)
   })
 
 })

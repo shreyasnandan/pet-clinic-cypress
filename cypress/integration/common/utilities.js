@@ -16,5 +16,15 @@ class CommonUtils {
     return ans; 
   } 
 
+  getText(cssSel){
+    let text
+    cy.get(cssSel)
+      .invoke('val')
+      .then(function($text){
+        text = $text
+      })
+      return text
+  }
+
 }
 export default CommonUtils;
