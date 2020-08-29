@@ -3,14 +3,13 @@
 import GetSelectors from '../../common/selectors.js';
 import CommonUtils from '../../common/utilities.js';
 
-
 context('Home Page Tests', () => {
 
   var sel = new GetSelectors()
   var util = new CommonUtils()
   var tempData = new Map()
   var lName
-  
+    
   //Find Owners Menu
   it('Goto Owner Menu', () => {
     cy.visit('http://localhost:8080/')
@@ -57,16 +56,18 @@ context('Home Page Tests', () => {
       .get('button.btn').should('have.text', 'Find Owner').click().wait(1000)
 
     //Verify that the search data is present in the table
-    cy.get('#ownersTable td a').contains(tempData.get('lastName'))
+    cy.get('#ownersTable td a').contains(tempData.get('lastName')).click().wait(1000)
   })
 
-  it('Select an Owner', () => {
+  it('Edit an Owner', () => {
+    let lName = tempData.get('lastName') + util.randomStr(5, "TEST2020")
 
-    let searchText = tempData.get('lastName')
-    cy.get('table#ownersTable a[href]').contains(searchText).click()
-
-    //Verify that the searche owner is selected 
-    cy.get('table tr td b').contains(searchText)
-  })
+    cy.get('a.btn').contains('Edit Owner').click()
+      .get('#lastName').type(lName)
+      .get('button[type="submit"]').should('have.text', 'Update Owner').click()
+      
+    //Verify that the owner is updated 
+    cy.get('tr td b').contains(lName)
+  })  
 
 })
