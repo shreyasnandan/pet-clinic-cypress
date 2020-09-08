@@ -5,12 +5,11 @@ import CommonUtils from '../../common/utilities.js';
 
 describe('Automation Test Suite - Fixtures', function () {
   var sel = new GetSelectors()
-  let tData
    
   //Use the cy.fixture() method to pull data from fixture file
   beforeEach(function () { 
-    cy.fixture('testdata').then(testdata => {
-    tData=testdata
+    cy.fixture('testdata').then(function(testdata) {
+    this.testdata=testdata
     })
   }) 
 
@@ -23,8 +22,8 @@ describe('Automation Test Suite - Fixtures', function () {
         $lis.eq(1).find('span').click()
       })
 
-    //Search by last name      
-    cy.get('input#lastName').type(tData.lastName)
+    //Search by last name
+    cy.get('input#lastName').type(this.testdata.lastname)
       .get('button.btn').should('have.text', 'Find Owner').click().wait(1000)
 
     //Verify that the search data is present in the table

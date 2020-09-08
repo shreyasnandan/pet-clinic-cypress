@@ -1,17 +1,18 @@
-/// <reference types="cypress" />
+// <reference types="cypress" />
 
 import GetSelectors from '../../common/selectors.js';
 import CommonUtils from '../../common/utilities.js';
 
-context('Home Page Tests', () => {
+describe('Home Page Tests', function() {
 
   var sel = new GetSelectors()
   var util = new CommonUtils()
   var tempData = new Map()
-  var lName
-    
+  //let tData
+      
   //Find Owners Menu
-  it('Goto Owner Menu', () => {
+  it('Goto Owner Menu', function() {
+    
     cy.visit('http://localhost:8080/')
     sel.getAllMenuItems()
       .then(function($lis){
@@ -21,7 +22,7 @@ context('Home Page Tests', () => {
   })
 
   //Add Owners
-  it('Add Owners', () => {
+  it('Add Owners', function() {
 
     var inputStr = util.randomStr(5, "TEST2020")
 
@@ -44,7 +45,11 @@ context('Home Page Tests', () => {
   })
 
   //Find Owners
-  it('Find Owners', () => {
+  it('Find Owners', function() {
+    Cypress.on('uncaught:exception', () => {
+      cy.log("Uncaught Exception, proceeding with next test")
+    })
+
     sel.getAllMenuItems()
       .then(function($lis){
         cy.log('Clicking Owners menu')
@@ -59,15 +64,16 @@ context('Home Page Tests', () => {
     cy.get('#ownersTable td a').contains(tempData.get('lastName')).click().wait(1000)
   })
 
-  it('Edit an Owner', () => {
+  it('Edit an Owner', function()  {
     let lName = tempData.get('lastName') + util.randomStr(5, "TEST2020")
-
+    
     cy.get('a.btn').contains('Edit Owner').click()
       .get('#lastName').type(lName)
       .get('button[type="submit"]').should('have.text', 'Update Owner').click()
       
     //Verify that the owner is updated 
     cy.get('tr td b').contains(lName)
+    
   })  
 
 })

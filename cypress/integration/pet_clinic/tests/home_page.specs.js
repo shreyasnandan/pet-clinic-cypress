@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 import GetSelectors from '../../common/selectors.js';
 
-
 context('Home Page Tests', () => {
 
   var sel = new GetSelectors();
