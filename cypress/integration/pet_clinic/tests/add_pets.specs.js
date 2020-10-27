@@ -28,6 +28,8 @@ describe('Automation Test Suite - Fixtures', function () {
 
     //Verify that the search data is present in the table
     cy.get('#ownersTable td a').contains('Last').click().wait(1000)
+    cy.get('a.btn').contains('Add New Pet').click()
+    cy.get('#pet label').contains('Owner').next().should('contain.text', this.testdata.lastname)  
       
   })
 
