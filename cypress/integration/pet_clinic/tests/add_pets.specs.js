@@ -5,7 +5,9 @@ import CommonUtils from '../../common/utilities.js';
 
 describe('Automation Test Suite - Fixtures', function () {
   var sel = new GetSelectors()
-   
+  var util = new CommonUtils()
+  var tempData = new Map()   
+
   //Use the cy.fixture() method to pull data from fixture file
   beforeEach(function () { 
     cy.fixture('testdata').then(function(testdata) {
@@ -31,6 +33,18 @@ describe('Automation Test Suite - Fixtures', function () {
     cy.get('a.btn').contains('Add New Pet').click()
     cy.get('#pet label').contains('Owner').next().should('contain.text', this.testdata.lastname)  
       
+    //Enter pet data and save
+    var inputStr = util.randomStr(5, "TEST2020")
+    let petName = 'PET'+inputStr
+    
+    cy.get('#name').type(petName)
+    .get('input#birthDate').click().get('td .ui-state-highlight').click()
+    
+    cy.get('#type option').eq(1).click();   
+  
+    cy.get('button').contains('Add Pet').click()
+
+    
   })
 
 
