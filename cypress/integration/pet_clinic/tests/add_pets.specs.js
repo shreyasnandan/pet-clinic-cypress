@@ -38,12 +38,11 @@ describe('Automation Test Suite - Fixtures', function () {
     let petName = 'PET'+inputStr
     
     cy.get('#name').type(petName)
-    .get('input#birthDate').click().get('td .ui-state-highlight').click()
+    .get('input#birthDate').click().get('td .ui-state-highlight').click()    
     
-    cy.get('#type option').eq(1).click();   
-  
-    cy.get('button').contains('Add Pet').click()
-
+    .get('select').select('dog', { force: true })
+    .get('button').contains('Add Pet').click()
+    .get('table dd').should('include.text', petName)  
     
   })
 

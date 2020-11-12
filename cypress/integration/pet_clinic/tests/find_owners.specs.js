@@ -8,7 +8,6 @@ describe('Home Page Tests', function() {
   var sel = new GetSelectors()
   var util = new CommonUtils()
   var tempData = new Map()
-  //let tData
       
   //Find Owners Menu
   it('Goto Owner Menu', function() {
@@ -23,25 +22,27 @@ describe('Home Page Tests', function() {
 
   //Add Owners
   it('Add Owners', function() {
+    for(i=0; i<2; i++){
 
-    var inputStr = util.randomStr(5, "TEST2020")
+      var inputStr = util.randomStr(5, "TEST2020")
 
-    cy.get('a.btn').should('have.text', 'Add Owner').click()
-      //verify that form is visible
-      .get('form#add-owner-form').should('be.visible')
+      cy.get('a.btn').should('have.text', 'Add Owner').click()
+        //verify that form is visible
+        .get('form#add-owner-form').should('be.visible')
 
-      //Input data
-      let lName ="Last" + inputStr
-     cy.get('#firstName').type("First" + inputStr)
-       .get('#lastName').type(lName)
-       .get('#address').type("Address " + inputStr)
-       .get('#city').type("City" + inputStr)
-       .get('#telephone').type(util.randomStr(10, "1234567890"))
-      
-      .get('button[type="submit"]').should('have.text', 'Add Owner').click()
+        //Input data
+        let lName ="Last" + inputStr
+      cy.get('#firstName').type("First" + inputStr)
+        .get('#lastName').type(lName)
+        .get('#address').type("Address " + inputStr)
+        .get('#city').type("City" + inputStr)
+        .get('#telephone').type(util.randomStr(10, "1234567890"))
+        
+        .get('button[type="submit"]').should('have.text', 'Add Owner').click()
 
-      //Store data in a map for later use
-      lName = tempData.set('lastName',lName)
+        //Store data in a map for later use
+        lName = tempData.set('lastName',lName)
+    }
   })
 
   //Find Owners
