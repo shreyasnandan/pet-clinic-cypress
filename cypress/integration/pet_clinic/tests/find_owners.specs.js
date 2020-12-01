@@ -1,5 +1,8 @@
 // <reference types="cypress" />
 
+//import '../../support/commands'
+import gotoOwnerMenu from '../../../support/commands'
+
 import GetSelectors from '../../common/selectors.js';
 import CommonUtils from '../../common/utilities.js';
 
@@ -8,21 +11,13 @@ describe('Home Page Tests', function() {
   var sel = new GetSelectors()
   var util = new CommonUtils()
   var tempData = new Map()
-      
-  //Find Owners Menu
-  it('Goto Owner Menu', function() {
-    
-    cy.visit('http://localhost:8080/')
-    sel.getAllMenuItems()
-      .then(function($lis){
-        cy.log('Clicking Owners menu')
-        $lis.eq(1).find('span').click()
-      })
-  })
-
+  
   //Add Owners
   it('Add Owners', function() {
-    for(i=0; i<2; i++){
+    for(var i=0; i<2; i++){
+
+      //Find Owners Menu
+      cy.gotoOwnerMenu()
 
       var inputStr = util.randomStr(5, "TEST2020")
 

@@ -8,7 +8,20 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
-//
+import GetSelectors from '../integration/common/selectors'
+'../../common/selectors.js';
+
+var sel = new GetSelectors()
+
+Cypress.Commands.add('gotoOwnerMenu', () => {    
+    cy.visit('http://localhost:8080/')
+    sel.getAllMenuItems()
+        .then(function($lis){
+        cy.log('Clicking Owners menu')
+        $lis.eq(1).find('span').click()
+        })
+})
+
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
 //
