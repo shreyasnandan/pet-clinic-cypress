@@ -5,7 +5,7 @@ declare namespace Cypress {
        * @example
        * cy.clearFilter(buttonLabel)
        */
-      gotoOwnerMenu(): Chainable<any>
+      gotoMenu(index: number): Chainable<any>
 
      
     }

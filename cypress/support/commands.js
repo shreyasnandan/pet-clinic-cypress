@@ -13,12 +13,12 @@ import GetSelectors from '../integration/common/selectors'
 
 var sel = new GetSelectors()
 
-Cypress.Commands.add('gotoOwnerMenu', () => {    
+Cypress.Commands.add('gotoMenu', (index) => {    
     cy.visit('http://localhost:8080/')
     sel.getAllMenuItems()
         .then(function($lis){
-        cy.log('Clicking Owners menu')
-        $lis.eq(1).find('span').click()
+        cy.log('Clicking Menu: '+ index)
+        $lis.eq(index).find('span').click()
         })
 })
 

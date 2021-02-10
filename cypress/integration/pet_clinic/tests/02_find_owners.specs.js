@@ -17,7 +17,8 @@ describe('Home Page Tests', function() {
     for(var i=0; i<2; i++){
 
       //Find Owners Menu
-      cy.gotoOwnerMenu()
+      cy.log('Owners Menu')
+      cy.gotoMenu(1)
 
       var inputStr = util.randomStr(5, "TEST2020")
 
