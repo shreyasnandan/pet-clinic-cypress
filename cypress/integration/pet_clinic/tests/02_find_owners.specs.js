@@ -69,7 +69,7 @@ describe('Home Page Tests', function() {
       .get('button[type="submit"]').should('have.text', 'Update Owner').click()
       
     //Verify that the owner is updated 
-    cy.get('tr td b').contains(lName)
+    cy.get('tr td strong').contains(lName)
     
   })  
 

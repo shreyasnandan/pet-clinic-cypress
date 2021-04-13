@@ -19,14 +19,13 @@ describe('Automation Test Suite - Fixtures', function () {
 
   it('Verify Veterinarian Links', function(){
     
-    cy.url().should('contain','/vets.html')
-
-    cy.get('table a').contains('View as XML')
-    cy.get('table a').should('have.attr','href', '/vets.xml')
+    cy.url().should('contain','/vets')
+    cy.xpath('//div[@class="row"][2]//a').contains('View as XML')
+    cy.xpath('//div[@class="row"][2]//a').should('have.attr','href', '/vets.xml')
     
 
-    cy.get('table a').contains('View as JSON')
-    //cy.get('table a').should('have.attr','href', '/vets.json')
+    cy.xpath('//div[@class="row"][2]//a').contains('View as JSON')
+    //cy.xpath('//div[@class="row"][2]//a').should('have.attr','href', '/vets.json')
 
     
   })

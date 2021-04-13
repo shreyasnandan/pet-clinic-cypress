@@ -9,7 +9,8 @@
   "author": "snandan",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^4.12.1"
+    "cypress": "^4.12.1",
+    "cypress-xpath": "^1.6.2"
   },
   "dependencies": {
     "request": "^2.88.2"
